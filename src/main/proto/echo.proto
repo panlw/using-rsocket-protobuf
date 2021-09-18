@@ -9,14 +9,14 @@ option java_outer_classname = "EchoServiceProto";
 option java_multiple_files = true;
 
 service EchoService {
-  // Request / Response
-  rpc RequestReply(EchoRequest) returns (EchoResponse) {}
+    // Request / Response
+    rpc RequestReply(EchoRequest) returns (EchoResponse) {}
 }
 
 message EchoRequest {
-  string request_message = 1;
+    string request_message = 1;
 }
 
 message EchoResponse {
-  string response_message = 1;
+    string response_message = 1;
 }

@@ -1,4 +1,4 @@
-package xyz.neopan.hello.rsocket.protobuf.impl;
+package xyz.neopan.hello.rsocket.server.impl;
 
 import com.google.protobuf.Empty;
 import io.netty.buffer.ByteBuf;
@@ -21,8 +21,8 @@ class DemoServiceImpl implements DemoService {
 
     private DemoResponse handleMessage(DemoRequest message) {
         return DemoResponse.newBuilder()
-                .setResponseMessage("Hi, " + message.getRequestMessage())
-                .build();
+            .setResponseMessage("Hi, " + message.getRequestMessage())
+            .build();
     }
 
     @Override
@@ -45,19 +45,19 @@ class DemoServiceImpl implements DemoService {
 
     @Override
     public Mono<DemoResponse> streamingRequestSingleResponse(
-            Publisher<DemoRequest> messages, ByteBuf metadata
+        Publisher<DemoRequest> messages, ByteBuf metadata
     ) {
         log.info("[DEMO] streamingRequestSingleResponse");
         return Flux.from(messages).count().map(n ->
-                DemoResponse.newBuilder()
-                        .setResponseMessage("[DEMO] " + n + " messages arrived.")
-                        .build()
+            DemoResponse.newBuilder()
+                .setResponseMessage("[DEMO] " + n + " messages arrived.")
+                .build()
         );
     }
 
     @Override
     public Flux<DemoResponse> streamingRequestAndResponse(
-            Publisher<DemoRequest> messages, ByteBuf metadata
+        Publisher<DemoRequest> messages, ByteBuf metadata
     ) {
         log.info("[DEMO] streamingRequestAndResponse");
         return Flux.from(messages).map(this::handleMessage);

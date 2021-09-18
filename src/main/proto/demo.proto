@@ -9,26 +9,26 @@ option java_outer_classname = "DemoServiceProto";
 option java_multiple_files = true;
 
 service DemoService {
-  // Request / Response
-  rpc RequestReply(DemoRequest) returns (DemoResponse) {}
+    // Request / Response
+    rpc RequestReply(DemoRequest) returns (DemoResponse) {}
 
-  // Fire-and-Forget
-  rpc FireAndForget(DemoRequest) returns (google.protobuf.Empty) {}
+    // Fire-and-Forget
+    rpc FireAndForget(DemoRequest) returns (google.protobuf.Empty) {}
 
-  // Single Request / Streaming Response
-  rpc RequestStream(DemoRequest) returns (stream DemoResponse) {}
+    // Single Request / Streaming Response
+    rpc RequestStream(DemoRequest) returns (stream DemoResponse) {}
 
-  // Streaming Request / Single Response
-  rpc StreamingRequestSingleResponse(stream DemoRequest) returns (DemoResponse) {}
+    // Streaming Request / Single Response
+    rpc StreamingRequestSingleResponse(stream DemoRequest) returns (DemoResponse) {}
 
-  // Streaming Request / Streaming Response
-  rpc StreamingRequestAndResponse(stream DemoRequest) returns (stream DemoResponse) {}
+    // Streaming Request / Streaming Response
+    rpc StreamingRequestAndResponse(stream DemoRequest) returns (stream DemoResponse) {}
 }
 
 message DemoRequest {
-  string request_message = 1;
+    string request_message = 1;
 }
 
 message DemoResponse {
-  string response_message = 1;
+    string response_message = 1;
 }

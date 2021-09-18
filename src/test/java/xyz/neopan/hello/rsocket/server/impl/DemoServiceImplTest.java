@@ -1,4 +1,4 @@
-package xyz.neopan.hello.rsocket.protobuf.impl;
+package xyz.neopan.hello.rsocket.server.impl;
 
 import com.google.protobuf.Empty;
 import io.netty.buffer.Unpooled;
@@ -35,17 +35,17 @@ class DemoServiceImplTest {
     static class Config {
 
         public static final RetryBackoffSpec RSOCKET_RETRY =
-                Retry.fixedDelay(2, Duration.ofSeconds(2));
+            Retry.fixedDelay(2, Duration.ofSeconds(2));
 
         @Bean
         RSocketClient rSocketClient() {
             log.info("[TEST] rSocketClient");
             final var transport =
-                    TcpClientTransport.create("localhost", 7001);
+                TcpClientTransport.create("localhost", 7001);
             final var source = RSocketConnector.create()
-                    .payloadDecoder(PayloadDecoder.ZERO_COPY)
-                    .reconnect(RSOCKET_RETRY)
-                    .connect(transport);
+                .payloadDecoder(PayloadDecoder.ZERO_COPY)
+                .reconnect(RSOCKET_RETRY)
+                .connect(transport);
             return RSocketClient.from(source);
         }
 
@@ -67,67 +67,67 @@ class DemoServiceImplTest {
 
     private Mono<DemoResponse> requestReply() {
         final var req = DemoRequest.newBuilder()
-                .setRequestMessage("Neo").build();
+            .setRequestMessage("Neo").build();
         return demoService.requestReply(req, Unpooled.EMPTY_BUFFER);
     }
 
     private Mono<Empty> fireAndForget() {
         final var req = DemoRequest.newBuilder()
-                .setRequestMessage("Neo").build();
+            .setRequestMessage("Neo").build();
         return demoService.fireAndForget(req, Unpooled.EMPTY_BUFFER);
     }
 
     private Flux<DemoResponse> requestStream() {
         final var req = DemoRequest.newBuilder()
-                .setRequestMessage("Neo").build();
+            .setRequestMessage("Neo").build();
         return demoService.requestStream(req, Unpooled.EMPTY_BUFFER);
     }
 
     private Mono<DemoResponse> streamingRequestSingleResponse() {
         final var req = Flux.just("Neo", "Foo")
-                .map(x -> DemoRequest.newBuilder().setRequestMessage(x).build());
+            .map(x -> DemoRequest.newBuilder().setRequestMessage(x).build());
         return demoService.streamingRequestSingleResponse(req, Unpooled.EMPTY_BUFFER);
     }
 
     private Flux<DemoResponse> streamingRequestAndResponse() {
         final var req = Flux.just("Neo", "Foo")
-                .map(x -> DemoRequest.newBuilder().setRequestMessage(x).build());
+            .map(x -> DemoRequest.newBuilder().setRequestMessage(x).build());
         return demoService.streamingRequestAndResponse(req, Unpooled.EMPTY_BUFFER);
     }
 
     @Test
     void test_requestReply() {
         StepVerifier.create(requestReply())
-                .consumeNextWith(x -> System.out.println("res: " + x.getResponseMessage()))
-                .verifyComplete();
+            .consumeNextWith(x -> System.out.println("res: " + x.getResponseMessage()))
+            .verifyComplete();
     }
 
     @Test
     void test_fireAndForget() {
         StepVerifier.create(fireAndForget())
-                .verifyComplete();
+            .verifyComplete();
     }
 
     @Test
     void test_requestStream() {
         StepVerifier.create(requestStream())
-                .consumeNextWith(x -> System.out.println("res: " + x.getResponseMessage()))
-                .verifyComplete();
+            .consumeNextWith(x -> System.out.println("res: " + x.getResponseMessage()))
+            .verifyComplete();
     }
 
     @Test
     void test_streamingRequestSingleResponse() {
         StepVerifier.create(streamingRequestSingleResponse())
-                .consumeNextWith(x -> System.out.println("res: " + x.getResponseMessage()))
-                .verifyComplete();
+            .consumeNextWith(x -> System.out.println("res: " + x.getResponseMessage()))
+            .verifyComplete();
     }
 
     @Test
     void test_streamingRequestAndResponse() {
         StepVerifier.create(streamingRequestAndResponse())
-                .consumeNextWith(x -> System.out.println("res1: " + x.getResponseMessage()))
-                .consumeNextWith(x -> System.out.println("res2: " + x.getResponseMessage()))
-                .verifyComplete();
+            .consumeNextWith(x -> System.out.println("res1: " + x.getResponseMessage()))
+            .consumeNextWith(x -> System.out.println("res2: " + x.getResponseMessage()))
+            .verifyComplete();
     }
 
     @Autowired
@@ -135,15 +135,15 @@ class DemoServiceImplTest {
 
     private Mono<EchoResponse> echo() {
         final var req = EchoRequest.newBuilder()
-                .setRequestMessage("Foo").build();
+            .setRequestMessage("Foo").build();
         return echoService.requestReply(req, Unpooled.EMPTY_BUFFER);
     }
 
     @Test
     void test_echo() {
         StepVerifier.create(echo())
-                .consumeNextWith(x -> System.out.println("res: " + x.getResponseMessage()))
-                .verifyComplete();
+            .consumeNextWith(x -> System.out.println("res: " + x.getResponseMessage()))
+            .verifyComplete();
     }
 
 }

@@ -1,4 +1,4 @@
-package xyz.neopan.hello.rsocket.protobuf.impl;
+package xyz.neopan.hello.rsocket.server.impl;
 
 import io.netty.buffer.ByteBuf;
 import lombok.extern.slf4j.Slf4j;
@@ -18,8 +18,8 @@ class EchoServiceImpl implements EchoService {
 
     private EchoResponse handleMessage(EchoRequest message) {
         return EchoResponse.newBuilder()
-                .setResponseMessage("Hi, " + message.getRequestMessage())
-                .build();
+            .setResponseMessage("Hi, " + message.getRequestMessage())
+            .build();
     }
 
     @Override

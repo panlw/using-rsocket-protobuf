@@ -4,7 +4,7 @@
  */
 @NonNullApi
 @NonNullFields
-package xyz.neopan.hello.rsocket.protobuf.impl;
+package xyz.neopan.hello.rsocket.server.impl;
 
 import org.springframework.lang.NonNullApi;
 import org.springframework.lang.NonNullFields;

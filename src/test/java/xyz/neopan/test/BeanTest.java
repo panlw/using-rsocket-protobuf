@@ -18,7 +18,7 @@ import java.lang.annotation.*;
 
 @ActiveProfiles("test")
 @SpringJUnitConfig(
-        initializers = ConfigDataApplicationContextInitializer.class
+    initializers = ConfigDataApplicationContextInitializer.class
 )
 public @interface BeanTest {
 

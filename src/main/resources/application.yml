@@ -1,2 +1,9 @@
+management.endpoints.web.base-path: /ops
+management.endpoints.web.exposure.include: health, beans, mappings
+
 spring.rsocket.server.port: 7001
 server.port: 8001
+
+spring.profiles:
+    include: svc
+    active: dev
